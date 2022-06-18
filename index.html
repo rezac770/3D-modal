@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .parent{
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            
+        }
+        .parent figure{
+            width: 32%;
+            height: 200px;
+            transition: all 1s;
+          
+        }
+        figure img{
+            width: 100%;
+            display: block;
+            object-fit: cover;
+           
+        }
+        @media (max-width:768px){
+            .parent figure{
+                width: 49%;
+
+            }
+
+        }
+        @media (max-width:600px){
+            .parent figure{
+                width: 100%;
+
+            }
+
+        }
+        .modal{
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(128, 128, 128, 0.5);
+            transform: scale(0);
+            transition:  1s;
+            transition-property: transform;
+            perspective: 1000px;
+            
+            
+ 
+        }
+        .modal img{
+            width: 50%;
+            cursor: pointer;
+           
+           
+        }
+        .modal .close{
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 30px;
+            color: brown;
+            cursor: pointer;
+        }
+      
+        .star{
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: translate(-50%,-50%);
+            
+            width: 70px;
+            height: 70px;
+            background-color: brown;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            z-index: 1;
+            pointer-events: none;
+            transform: rotate();
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bass">
+        <div class="star">
+        </div>
+    </div>
+
+   
+    <div class="parent">
+       
+        <figure><img src="images/animal1.jpg" alt=""> </figure>
+        <figure><img src="images/animal2.jpg" alt=""> </figure>
+        <figure><img src="images/animal3.jpg" alt=""> </figure>
+        <figure><img src="images/animal4.jpg" alt=""> </figure>
+        <figure><img src="images/animal5.jpg" alt=""> </figure>
+        <figure><img src="images/animal6.jpg" alt=""> </figure>
+        <figure><img src="images/animal7.jpg" alt=""> </figure>
+        <figure><img src="images/city.jpg" alt=""> </figure>
+        <figure><img src="images/city2.jpg" alt=""> </figure>
+        <figure><img src="images/city3.jpg" alt=""> </figure>
+        <figure><img src="images/city4.jpg" alt=""> </figure>
+        <figure><img src="images/city5.jpg" alt=""> </figure>
+        <figure><img src="images/other1.jpg" alt=""> </figure>
+        <figure><img src="images/other2.jpg" alt=""> </figure>
+        <figure><img src="images/other3.jpg" alt=""> </figure>
+        <figure><img src="images/other4.jpg" alt=""> </figure>
+        <figure><img src="images/other5.jpg" alt=""> </figure>
+        <figure><img src="images/other6.jpg" alt=""> </figure>
+        <figure><img src="images/other7.jpg" alt=""> </figure>
+        <figure><img src="images/rainy1.jpg" alt=""> </figure>
+        <figure><img src="images/rainy3.jpg" alt=""> </figure>
+        
+    </div>
+    <div class="modal">
+        <img src="images/rainy4.jpg" alt="">
+        <div class="close">&times;</div>
+    </div>
+
+
+
+    <script>
+        const allImage = document.querySelectorAll(".parent figure");
+        const parent = document.querySelector(".parent");
+        const modal = document.querySelector(".modal");
+        const modalImg = document.querySelector(".modal img");
+        const star = document.querySelector(".star");
+       
+        allImage.forEach(function(im){
+          im.addEventListener("mouseenter",function(){
+           allImage.forEach(function(ali){
+            ali.style.filter = "invert(100%)"
+           })
+          this.style.filter = "invert(0)"
+          })
+        })
+        parent.addEventListener("mouseleave",function(){
+            allImage.forEach(function(img){
+              img .style.filter = "invert(0)";
+
+            })
+
+        })
+        allImage.forEach(function(pic){
+            pic.addEventListener("click",function(e){
+                const thisImg = pic.children[0].getAttribute("src");
+                modal.style.transform = "scale(1)";
+                modalImg.setAttribute("src",thisImg);
+                modal.style.transformOrigin = `${e.clientX}px  ${e.clientY}px`
+
+
+            })
+        })
+        modal.addEventListener("click",function(){
+            modal.style.transform = "scale(0)";
+        })
+            modalImg.addEventListener("click", function(e){
+               e .stopPropagation();});
+
+             parent.addEventListener("mousemove",function(e){
+                star.style.left = e.offsetX + `px`;
+                star.style.top = e.offsetY +  `px`;
+                star.style.backgroundColor = ` rgb(${e.offsetX},${e.offsetY},0)`;
+               star.style.transform=`rotate(${e.offsetX}deg)`;
+             })   
+             modalImg.addEventListener("mousemove",function(e){
+                let rotateY= (e.offsetX /7) - (this.width/20);
+                let rotateX = -((e.offsetY /7) - (this.height/20));
+                modalImg.style. transform = `rotateX(${rotateX}deg ) rotateY(${rotateY}deg )`
+               
+
+             })
+    </script>
+</body>
+</html>
