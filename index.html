@@ -44,6 +44,9 @@
                 width: 100%;
 
             }
+            .filter div{
+                width: 100%;
+            }
 
         }
         .modal{
@@ -93,6 +96,42 @@
             pointer-events: none;
             transform: rotate();
         }
+        .filter{
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .filter > *:not(.show-all){
+            width: 32%;
+            background-color: blueviolet;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+            border-radius: 10px;
+
+        }
+        .filter .show-all{
+            width: 100%;
+            background-color: violet;
+            height: 50px;
+            text-align: center;
+            border-radius: 10px;
+            margin-top: 8px;
+            margin-bottom: 8px;
+            line-height: 40px;
+            cursor: pointer;
+            
+        }
+        .filter > *{
+            font-family: sans-serif;
+            
+        }
+        .filter > div:hover{
+            background-color: cadetblue;
+        }
     </style>
 </head>
 <body>
@@ -102,30 +141,36 @@
         </div>
     </div>
 
+    <div class="filter">
+        <div class="animals">ANIMALS</div>
+        <div class="city">CITY</div>
+          <div class="other">OTHER</div>  
+          <div class="show-all">SHOW-ALL</div>
+    </div>
    
     <div class="parent">
        
-        <figure><img src="images/animal1.jpg" alt=""> </figure>
-        <figure><img src="images/animal2.jpg" alt=""> </figure>
-        <figure><img src="images/animal3.jpg" alt=""> </figure>
-        <figure><img src="images/animal4.jpg" alt=""> </figure>
-        <figure><img src="images/animal5.jpg" alt=""> </figure>
-        <figure><img src="images/animal6.jpg" alt=""> </figure>
-        <figure><img src="images/animal7.jpg" alt=""> </figure>
-        <figure><img src="images/city.jpg" alt=""> </figure>
-        <figure><img src="images/city2.jpg" alt=""> </figure>
-        <figure><img src="images/city3.jpg" alt=""> </figure>
-        <figure><img src="images/city4.jpg" alt=""> </figure>
-        <figure><img src="images/city5.jpg" alt=""> </figure>
-        <figure><img src="images/other1.jpg" alt=""> </figure>
-        <figure><img src="images/other2.jpg" alt=""> </figure>
-        <figure><img src="images/other3.jpg" alt=""> </figure>
-        <figure><img src="images/other4.jpg" alt=""> </figure>
-        <figure><img src="images/other5.jpg" alt=""> </figure>
-        <figure><img src="images/other6.jpg" alt=""> </figure>
-        <figure><img src="images/other7.jpg" alt=""> </figure>
-        <figure><img src="images/rainy1.jpg" alt=""> </figure>
-        <figure><img src="images/rainy3.jpg" alt=""> </figure>
+        <figure class="animals"><img src="images/animal1.jpg" alt=""> </figure>
+        <figure class="animals"><img src="images/animal2.jpg" alt=""> </figure>
+        <figure class="animals"><img src="images/animal3.jpg" alt=""> </figure>
+        <figure class="animals"><img src="images/animal4.jpg" alt=""> </figure>
+        <figure class="animals"><img src="images/animal5.jpg" alt=""> </figure>
+        <figure class="animals"><img src="images/animal6.jpg" alt=""> </figure>
+        <figure class="animals"><img src="images/animal7.jpg" alt=""> </figure>
+        <figure class="city"><img src="images/city.jpg" alt=""> </figure>
+        <figure class="city"><img src="images/city2.jpg" alt=""> </figure>
+        <figure class="city"><img src="images/city3.jpg" alt=""> </figure>
+        <figure class="city"><img src="images/city4.jpg" alt=""> </figure>
+        <figure class="city"><img src="images/city5.jpg" alt=""> </figure>
+        <figure class="other"><img src="images/other1.jpg" alt=""> </figure>
+        <figure class="other"><img src="images/other2.jpg" alt=""> </figure>
+        <figure class="other"><img src="images/other3.jpg" alt=""> </figure>
+        <figure class="other"><img src="images/other4.jpg" alt=""> </figure>
+        <figure class="other"><img src="images/other5.jpg" alt=""> </figure>
+        <figure class="other"><img src="images/other6.jpg" alt=""> </figure>
+        <figure class="other"><img src="images/other7.jpg" alt=""> </figure>
+        <figure class="other"><img src="images/rainy1.jpg" alt=""> </figure>
+        <figure class="other"><img src="images/rainy3.jpg" alt=""> </figure>
         
     </div>
     <div class="modal">
@@ -141,6 +186,10 @@
         const modal = document.querySelector(".modal");
         const modalImg = document.querySelector(".modal img");
         const star = document.querySelector(".star");
+        const animalsBtn = document.querySelector(".filter .animals");
+        const city = document.querySelector(".filter .city");
+        const other= document.querySelector(".filter .other");
+        const showAll= document.querySelector(".filter .show-all");
        
         allImage.forEach(function(im){
           im.addEventListener("mouseenter",function(){
@@ -183,9 +232,39 @@
                 let rotateY= (e.offsetX /7) - (this.width/20);
                 let rotateX = -((e.offsetY /7) - (this.height/20));
                 modalImg.style. transform = `rotateX(${rotateX}deg ) rotateY(${rotateY}deg )`
-               
-
              })
+           animalsBtn.addEventListener("click",function(){
+                allImage.forEach(function(img){
+                    if(img.classList.contains("animals")){
+                        img.style.display = "block";
+                    }else{
+                        img.style.display = "none";
+                    }
+                })
+            })
+            city.addEventListener("click",function(){
+                allImage.forEach(function(img){
+                    if(img.classList.contains("city")){
+                        img.style.display = "block";
+                    }else{
+                        img.style.display = "none";
+                    }
+                })
+            })
+            other.addEventListener("click",function(){
+                allImage.forEach(function(img){
+                    if(img.classList.contains("other")){
+                        img.style.display = "block";
+                    }else{
+                        img.style.display = "none";
+                    }
+                })
+            })
+           showAll.addEventListener("click",function(){
+                allImage.forEach(function(img){
+                    img.style.display = "block";
+                })
+            })
     </script>
 </body>
 </html>
